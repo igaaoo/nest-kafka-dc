@@ -14,6 +14,11 @@ import { DcService } from './dc.service';
         client: {
           clientId: 'dc-service',
           brokers: [process.env.KAFKA_BROKER || 'localhost:9092'],
+          retry: {
+            retries: 5,
+            initialRetryTime: 300,
+            factor: 0.2,
+          },
         },
         producer: {
           allowAutoTopicCreation: true,

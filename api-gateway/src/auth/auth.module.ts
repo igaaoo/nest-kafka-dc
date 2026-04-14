@@ -15,6 +15,11 @@ import { ClientKafka, ClientsModule, Transport } from '@nestjs/microservices';
           client: {
             clientId: 'auth-service',
             brokers: [process.env.KAFKA_BROKER || 'localhost:9092'],
+            retry: {
+              retries: 5,
+              initialRetryTime: 300,
+              factor: 0.2,
+            },
           },
           consumer: {
             groupId: 'auth-consumer',
