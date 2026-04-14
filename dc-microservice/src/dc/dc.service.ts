@@ -44,7 +44,7 @@ export class DcService {
     await this.prisma.transactions.create({
       data: {
         chassi: transaction.chassi,
-        user_id: user.user_id,
+        username: user.username,
         destination: transaction.destination,
         status: 'ABERTA',
       },
@@ -101,7 +101,7 @@ export class DcService {
     const transaction = await this.prisma.transactions.findFirst({
       where: {
         chassi: data.chassi,
-        user_id: user.user_id,
+        username: user.username,
         destination: data.destination,
         status: 'ABERTA',
       },

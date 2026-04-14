@@ -10,10 +10,12 @@ COPY prisma ./prisma
 
 # Instala dependências
 RUN npm install
-RUN npx prisma generate
 
 # Copia o restante do código
 COPY . .
+
+# Gera o client Prisma com o schema atualizado
+RUN npx prisma generate
 
 
 # Variáveis de ambiente

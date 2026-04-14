@@ -34,7 +34,7 @@ services:
     environment:
       POSTGRES_USER: postgres
       POSTGRES_PASSWORD: postgres
-      POSTGRES_DB: dc-database
+      POSTGRES_DB: postgres
     volumes:
       - postgres_data:/var/lib/postgresql/data
       - ./init.sql:/docker-entrypoint-initdb.d/init.sql
@@ -56,7 +56,7 @@ services:
       context: ../auth-microservice
     environment:
       KAFKA_BROKER: kafka:29092
-      DATABASE_URL: postgresql://postgres:postgres@postgres:5432/dc-database
+      DATABASE_URL: postgresql://postgres:postgres@postgres:5432/auth_db
     depends_on:
       - kafka
       - postgres
@@ -67,7 +67,7 @@ services:
       context: ../dc-microservice
     environment:
       KAFKA_BROKER: kafka:29092
-      DATABASE_URL: postgresql://postgres:postgres@postgres:5432/dc-database
+      DATABASE_URL: postgresql://postgres:postgres@postgres:5432/dc_db
     depends_on:
       - kafka
       - postgres
