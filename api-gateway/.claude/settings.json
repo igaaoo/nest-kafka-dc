@@ -1,0 +1,8 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(npm install:*)",
+      "Read(//c/Users/Igor Neves/Desktop/Estudos/nest-kafka/**)"
+    ]
+  }
+}

@@ -1,0 +1,44 @@
+generator client {
+  provider = "prisma-client"
+  output   = "../generated/prisma"
+}
+
+datasource db {
+  provider = "postgresql"
+  schemas  = ["auth", "cd"]
+}
+
+/// This table contains check constraints and requires additional setup for migrations. Visit https://pris.ly/d/check-constraints for more info.
+model users {
+  user_id      Int            @id @default(autoincrement())
+  username     String         @unique
+  status       String
+  created_at   DateTime?      @default(now()) @db.Timestamp(6)
+  transactions transactions[]
+
+  @@schema("auth")
+}
+
+/// This table contains check constraints and requires additional setup for migrations. Visit https://pris.ly/d/check-constraints for more info.
+model transactions {
+  id          Int       @id @default(autoincrement())
+  chassi      String
+  user_id     Int
+  destination String
+  status      String
+  created_at  DateTime? @default(now()) @db.Timestamp(6)
+  users       users     @relation(fields: [user_id], references: [user_id], map: "fk_user")
+  vehicles    vehicles  @relation(fields: [chassi], references: [chassi], map: "fk_vehicle")
+
+  @@schema("cd")
+}
+
+model vehicles {
+  chassi       String         @id
+  modelo       String
+  patio        String
+  created_at   DateTime?      @default(now()) @db.Timestamp(6)
+  transactions transactions[]
+
+  @@schema("cd")
+}
